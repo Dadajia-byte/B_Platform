@@ -26,9 +26,12 @@
 
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue'
-import { ElNotification } from 'element-plus';
+import { ElNotification } from 'element-plus'
 // 收集账号和密码的数据
 import { reactive, ref } from 'vue'
+
+// 导入判断时间函数
+import times from '@/utils/time'
 // 按钮加载效果
 let loading = ref(false)
 
@@ -42,7 +45,7 @@ let $router = useRouter()
 
 // 引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 let useStore = useUserStore()
 
 // 登录按钮的回调
@@ -51,28 +54,32 @@ const login = async () => {
   // 通知仓库发登录请求
   // 请求成功 -> 跳转首页展示数据的地方
   // 请求失败 -> 提示登陆失败
-  await useStore.userLogin(loginForm).then(() => {
-    // 编程式导航跳转
-    $router.push('/')
-    // 登陆成功的提示信息
-    ElNotification({
-      title: '登录成功',
-      message: '欢迎登录',
-      type: 'success',
+  await useStore
+    .userLogin(loginForm)
+    .then(() => {
+      // 编程式导航跳转
+      $router.push('/')
+      // 登陆成功的提示信息
+      ElNotification({
+        title: `hi,${times()}好`,
+        message: '欢迎登录',
+        type: 'success',
+      })
+      loading.value = false
     })
-    loading.value = false
-  }).catch((error: Error) => {
-    loading.value = false
+    .catch((error: Error) => {
+      loading.value = false
 
-    // 登陆失败的提示信息
-    ElNotification({
-      title: '登录失败',
-      message: error.message,
-      type: 'error',
+      // 登陆失败的提示信息
+      ElNotification({
+        title: '登录失败',
+        message: error.message,
+        type: 'error',
+      })
     })
-  });
-
 }
+
+
 </script>
 
 <style scoped lang="scss">
