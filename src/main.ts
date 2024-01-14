@@ -12,18 +12,16 @@ app.use(ElementPlus, {
 // svg插件需要配置代码
 import 'virtual:svg-icons-register'
 
+// 使用全局组件
 import globalComponent from '@/components'
 app.use(globalComponent)
 
-// 测试代码测试假的结构能否使用
-import axios from 'axios'
-// 登录接口
-/* axios({
-  url: '/api/user/login',
-  method: 'post',
-  data: {
-    username: 'admin',
-    password: '111111',
-  },
-}) */
+// 引入路由
+import routers from './routers'
+app.use(routers)
+
+// 引入pinia
+import pinia from './store'
+app.use(pinia)
+
 app.mount('#app')

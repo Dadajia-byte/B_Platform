@@ -5,13 +5,14 @@ export interface loginForm {
 }
 
 // 登录接口返回的ts的类型
-interface dateType {
-  token: string
+interface dataType {
+  token?: string
+  message?: string
 }
 
-export interface loginResponseDate {
+export interface loginResponseData {
   code: number
-  date: dateType
+  data: dataType
 }
 
 // 定义服务器返回用户信息相关的数据类型
@@ -31,7 +32,7 @@ interface user {
   checkUser: userInfo
 }
 
-export interface userResponseDate {
+export interface userResponseData {
   code: number
-  date: user
+  data: user
 }
