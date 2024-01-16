@@ -3,13 +3,13 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input placeholder="请输入账号" v-model="loginForm.username" :prefix-icon="User"></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input type="password" placeholder="请输入密码" :prefix-icon="Lock" v-model="loginForm.password"
               show-password></el-input>
           </el-form-item>
@@ -50,6 +50,9 @@ let useStore = useUserStore()
 
 // 登录按钮的回调
 const login = async () => {
+  // 必须保障全部表单校验通过后才能发送请求
+  await loginForms.value.validate()
+
   loading.value = true
   // 通知仓库发登录请求
   // 请求成功 -> 跳转首页展示数据的地方
@@ -79,7 +82,48 @@ const login = async () => {
     })
 }
 
+// 获取表单元素
+const loginForms = ref()
 
+// 自定义规则函数
+const validatorUserName = (rule: any, value: any, callback: any) => {
+  // rule:即为校验对象
+  // console.log(rule);
+  // value：即为表单元素的文本内容
+  // console.log(value);
+  // callback：即为校验函数  如果符合条件callback放行通过，如果不符合注入错误信息
+  if (value.length >= 5 && value.length <= 10) {
+    callback()
+  } else {
+    callback(new Error('账号长度应该为5-10位'))
+  }
+}
+const validatorPassword = (value: any, callback: any) => {
+  if (value.length >= 6 && value.length <= 15) {
+    callback()
+  } else {
+    callback(new Error('密码长度应当为6-15位'))
+  }
+}
+
+// 表单校验
+const rules = {
+  // 规则对象属性
+  // required代表这个字段务必要检验
+  // min、max表示表单元素长度
+  // message表示提示错误信息
+  // trigger：表示触发校验表单时机。blur -> 失去表单焦点;change -> 表单元素变化 
+
+  username: [
+    // { required: true, message: '账号不能为空', trigger: 'blur' },
+    // { required: true, min: 5, max: 10, mseeage: '账号长度应该为5-10位', trigger: 'change' }
+    { trigger: 'change', validator: validatorUserName }
+  ],
+  password: [
+    // { required: true, min: 6, max: 15, message: '密码长度应当为6-15位', trigger: 'change' }
+    { trigger: 'change', validator: validatorPassword }
+  ]
+}
 </script>
 
 <style scoped lang="scss">
