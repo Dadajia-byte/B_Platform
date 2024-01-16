@@ -98,7 +98,7 @@ const validatorUserName = (rule: any, value: any, callback: any) => {
     callback(new Error('账号长度应该为5-10位'))
   }
 }
-const validatorPassword = (value: any, callback: any) => {
+const validatorPassword = (rule: any, value: any, callback: any) => {
   if (value.length >= 6 && value.length <= 15) {
     callback()
   } else {
@@ -112,17 +112,17 @@ const rules = {
   // required代表这个字段务必要检验
   // min、max表示表单元素长度
   // message表示提示错误信息
-  // trigger：表示触发校验表单时机。blur -> 失去表单焦点;change -> 表单元素变化 
+  // trigger：表示触发校验表单时机。blur -> 失去表单焦点;change -> 表单元素变化
 
   username: [
     // { required: true, message: '账号不能为空', trigger: 'blur' },
     // { required: true, min: 5, max: 10, mseeage: '账号长度应该为5-10位', trigger: 'change' }
-    { trigger: 'change', validator: validatorUserName }
+    { trigger: 'change', validator: validatorUserName },
   ],
   password: [
     // { required: true, min: 6, max: 15, message: '密码长度应当为6-15位', trigger: 'change' }
-    { trigger: 'change', validator: validatorPassword }
-  ]
+    { trigger: 'change', validator: validatorPassword },
+  ],
 }
 </script>
 

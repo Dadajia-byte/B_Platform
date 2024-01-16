@@ -4,6 +4,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import '@/styles/index.scss'
+</script>
 
 <style scoped lang="scss"></style>

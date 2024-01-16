@@ -5,9 +5,12 @@ import { defineStore } from 'pinia'
 import { reqLogin } from '@/api/user'
 // 引入数据类型
 import type { loginForm, loginResponseData } from '@/api/user/type'
-
+import type { RouteRecordRaw } from 'vue-router'
 // 引入操作本地存储的工具方法
 import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
+
+// 引入路由（常量路由）
+import { constantRoutes } from '@/routers/routes'
 
 const useUserStore = defineStore('User', () => {
   // 小仓库存储数据的地方
@@ -35,6 +38,7 @@ const useUserStore = defineStore('User', () => {
   return {
     userLogin,
     token,
+    menuRoutes: constantRoutes as RouteRecordRaw[],
   }
 })
 
