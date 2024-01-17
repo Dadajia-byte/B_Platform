@@ -5,9 +5,9 @@ export const constantRoutes = [
     component: () => import('@/views/login/index.vue'),
     name: 'login', // 命名路由
     meta: {
-      title: '登录',// 菜单标题
+      title: '登录', // 菜单标题
       hidden: true,
-    }
+    },
   },
   {
     // 登录成功后展示数据的路由
@@ -17,7 +17,7 @@ export const constantRoutes = [
     meta: {
       title: 'layout',
       hidden: true,
-      icon: '' // 菜单左侧图标，支持element-plus全部图标
+      icon: '', // 菜单左侧图标，支持element-plus全部图标
     },
     redirect: '/home',
     children: [
@@ -27,10 +27,10 @@ export const constantRoutes = [
         meta: {
           title: '首页',
           hidden: false, // 路由标题在菜单中是否隐藏true为隐藏
-          icon: 'home'
-        }
+          icon: 'HomeFilled',
+        },
       },
-    ]
+    ],
   },
   {
     path: '/404',
@@ -38,8 +38,8 @@ export const constantRoutes = [
     name: '404',
     meta: {
       title: '404',
-      hidden: true
-    }
+      hidden: true,
+    },
   },
   {
     path: '/:pathMathc(.*)*',
@@ -47,8 +47,8 @@ export const constantRoutes = [
     name: 'Any',
     meta: {
       title: '任意路由',
-      hidden: true
-    }
+      hidden: true,
+    },
   },
   {
     path: '/screen',
@@ -57,8 +57,8 @@ export const constantRoutes = [
     meta: {
       title: '数据大屏',
       hidden: false,
-      icon: 'Platform'
-    }
+      icon: 'Platform',
+    },
   },
   {
     path: '/acl',
@@ -67,7 +67,7 @@ export const constantRoutes = [
     meta: {
       title: '权限管理',
       hidden: false,
-      icon: 'Lock'
+      icon: 'Lock',
     },
     children: [
       {
@@ -76,8 +76,8 @@ export const constantRoutes = [
         meta: {
           title: '用户管理',
           hidden: false,
-          icon: 'User'
-        }
+          icon: 'User',
+        },
       },
       {
         path: '/acl/role',
@@ -86,8 +86,8 @@ export const constantRoutes = [
         meta: {
           title: '角色管理',
           hidden: false,
-          icon: 'UserFilled'
-        }
+          icon: 'UserFilled',
+        },
       },
       {
         path: '/acl/permisson',
@@ -96,11 +96,10 @@ export const constantRoutes = [
         meta: {
           title: '菜单管理',
           hidden: false,
-          icon: 'Monitor'
-        }
-      }
+          icon: 'Monitor',
+        },
+      },
     ],
-
   },
   {
     path: '/product',
@@ -108,7 +107,7 @@ export const constantRoutes = [
     name: 'Product',
     meta: {
       title: '商品管理',
-      icon: 'Goods'
+      icon: 'Goods',
     },
     children: [
       {
@@ -117,8 +116,8 @@ export const constantRoutes = [
         name: 'Trademark',
         meta: {
           title: '品牌管理',
-          icon: 'ShoppingCartFull'
-        }
+          icon: 'ShoppingCartFull',
+        },
       },
       {
         path: '/product/attr',
@@ -126,8 +125,8 @@ export const constantRoutes = [
         name: 'Attr',
         meta: {
           title: '属性管理',
-          icon: 'ChromeFilled'
-        }
+          icon: 'ChromeFilled',
+        },
       },
       {
         path: '/product/sku',
@@ -135,8 +134,8 @@ export const constantRoutes = [
         name: 'Sku',
         meta: {
           title: 'SKU管理',
-          icon: 'Orange'
-        }
+          icon: 'Orange',
+        },
       },
       {
         path: '/product/spu',
@@ -144,11 +143,9 @@ export const constantRoutes = [
         name: 'Spu',
         meta: {
           title: 'SPU管理',
-          icon: 'Calendar'
-        }
-
-      }
-    ]
-  }
-
+          icon: 'Calendar',
+        },
+      },
+    ],
+  },
 ]

@@ -1,11 +1,7 @@
 <template>
-    <div>
-        我是sku
-    </div>
+  <div>我是sku</div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

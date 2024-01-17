@@ -1,11 +1,9 @@
 <template>
-    <div>
-        <h1>我是数据大屏一级组件</h1>
-    </div>
+  <div>
+    <h1>我是数据大屏一级组件</h1>
+  </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

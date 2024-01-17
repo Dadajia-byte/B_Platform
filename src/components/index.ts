@@ -15,11 +15,10 @@ export default {
     // 将自定义组件注册为全局
     Object.keys(allGlobalComponents).forEach((key) => {
       app.component(key)
-    });
+    })
     // 将element-plus提供的图标注册为全局组件
     for (const [key, component] of Object.entries(ElementPlusIcons)) {
       app.component(key, component)
-
     }
   },
 }
