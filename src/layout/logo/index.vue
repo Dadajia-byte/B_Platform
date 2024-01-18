@@ -10,9 +10,8 @@ import setting from '@/setting'
 </script>
 <script lang="ts">
 export default {
-  name: 'Logo'
+  name: 'Logo',
 }
-
 </script>
 <style scoped lang="scss">
 .logo {
@@ -30,7 +29,9 @@ export default {
 
   p {
     font-size: $logoFontSize;
-    margin-left: 10px;
+    margin-left: 15px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 </style>

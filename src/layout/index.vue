@@ -10,7 +10,7 @@
       <el-scrollbar>
         <!-- 菜单组件 -->
         <el-menu :default-active="$route.path" background-color="#001529" text-color="white" router
-          active-text-color="yellowgreen" :collapse="LayoutSettingStore.iconName === 'Fold'" style="border-right:  0px;">
+          active-text-color="yellowgreen" :collapse="LayoutSettingStore.iconName === 'Fold'" style="border-right: 0px">
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="UserStore.menuRoutes" text-color="white"></Menu>
         </el-menu>
@@ -21,7 +21,7 @@
       <Tabbar></Tabbar>
     </div>
     <!-- 内容区 -->
-    <div class="layout_content" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }" style="border-left: 0px;">
+    <div class="layout_content" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }" style="border-left: 0px">
       <Main></Main>
     </div>
   </div>
@@ -43,33 +43,29 @@ import Main from './main/index.vue'
 import useUserStore from '@/store/modules/user'
 let UserStore = useUserStore()
 // 获取layout配置仓库
-import useLayOutSettingStore from '@/store/setting';
+import useLayOutSettingStore from '@/store/setting'
 let LayoutSettingStore = useLayOutSettingStore()
 </script>
 <script lang="ts">
 export default {
-  name: 'Layout'
+  name: 'Layout',
 }
-
 </script>
 <style scoped lang="scss">
 .layout_container {
   width: 100%;
   height: 100vh;
 
-
   .layout_slider {
     width: $leftMenuWidth;
     height: 100vh;
     background-color: $leftMenuBgc;
     color: white;
-    transition: all .8s;
+    transition: all 0.8s;
 
     el-scrollbar {
       height: calc(100vh -logoHight);
       width: 100%;
-
-
     }
 
     &.fold {
@@ -85,7 +81,7 @@ export default {
     top: 0px;
     left: $leftMenuWidth;
     padding: 20px;
-    transition: all .8s;
+    transition: all 0.8s;
 
     &.fold {
       width: calc(100vw - $leftMenuMinWidth);
@@ -101,7 +97,7 @@ export default {
     left: $leftMenuWidth;
     background-color: yellow;
     overflow: auto;
-    transition: all .8s;
+    transition: all 0.8s;
 
     &.fold {
       width: calc(100vw - $leftMenuMinWidth);
