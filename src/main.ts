@@ -22,6 +22,6 @@ app.use(routers)
 
 // 引入pinia
 import pinia from './store'
-app.use(pinia)
 
-app.mount('#app')
+
+app.use(pinia).mount('#app')

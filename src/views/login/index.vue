@@ -3,38 +3,18 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form
-          class="login_form"
-          :model="loginForm"
-          :rules="rules"
-          ref="loginForms"
-        >
+        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
           <el-form-item prop="username">
-            <el-input
-              placeholder="请输入账号"
-              v-model="loginForm.username"
-              :prefix-icon="User"
-            ></el-input>
+            <el-input placeholder="请输入账号" v-model="loginForm.username" :prefix-icon="User"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input
-              type="password"
-              placeholder="请输入密码"
-              :prefix-icon="Lock"
-              v-model="loginForm.password"
-              show-password
-            ></el-input>
+            <el-input type="password" placeholder="请输入密码" :prefix-icon="Lock" v-model="loginForm.password"
+              show-password></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button
-              :loading="loading"
-              class="login_btn"
-              type="primary"
-              size="default"
-              @click="login"
-            >
+            <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">
               登录
             </el-button>
           </el-form-item>
@@ -60,14 +40,15 @@ let loginForm = reactive({
   password: '',
 })
 
-// 获取路由器
-let $router = useRouter()
 
 // 引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 let useStore = useUserStore()
-
+// 获取路由器
+let $router = useRouter()
+// 获取路由
+let $route = useRoute()
 // 登录按钮的回调
 const login = async () => {
   // 必须保障全部表单校验通过后才能发送请求
@@ -81,7 +62,10 @@ const login = async () => {
     .userLogin(loginForm)
     .then(() => {
       // 编程式导航跳转
-      $router.push('/')
+      // 判断登录时是否有query参数
+      let redirect: any = $route.query.redirect
+      $router.push({ path: redirect || '/' })
+
       // 登陆成功的提示信息
       ElNotification({
         title: `hi,${times()}好`,

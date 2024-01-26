@@ -14,7 +14,10 @@
 
     <!-- 有子路由但只有一个 -->
     <template v-if="item.children && item.children.length == 1">
-      <el-menu-item v-if="!item.children[0].meta.hidden" :index="item.children[0].path">
+      <el-menu-item
+        v-if="!item.children[0].meta.hidden"
+        :index="item.children[0].path"
+      >
         <el-icon>
           <component :is="item.children[0].meta.icon"></component>
         </el-icon>
@@ -42,7 +45,6 @@
 <script setup lang="ts">
 // 获取父组件传来的全部路由组件数据
 defineProps(['menuList'])
-
 </script>
 <script lang="ts">
 export default {

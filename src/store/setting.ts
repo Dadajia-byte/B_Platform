@@ -12,7 +12,7 @@ let useLayOutSettingStore = defineStore('SettingStore', () => {
   return {
     iconName,
     changeIcon,
-    refresh
+    refresh,
   }
 })
 

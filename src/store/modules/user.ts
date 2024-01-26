@@ -1,21 +1,26 @@
 // 创建用户相关的小仓库
 import { defineStore } from 'pinia'
-
+import { ref } from 'vue'
 // 引入接口
-import { reqLogin } from '@/api/user'
+import { reqLogin, reqUserInfo } from '@/api/user'
 // 引入数据类型
 import type { loginForm, loginResponseData } from '@/api/user/type'
 import type { RouteRecordRaw } from 'vue-router'
 // 引入操作本地存储的工具方法
-import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
+import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 
 // 引入路由（常量路由）
 import { constantRoutes } from '@/routers/routes'
-
+import { useRoute, useRouter } from 'vue-router'
 const useUserStore = defineStore('User', () => {
   // 小仓库存储数据的地方
-  let token: string | null = GET_TOKEN()
-
+  let token = ref(GET_TOKEN())
+  let username = ref('')
+  let avatar = ref('')
+  // 获取路由器对象
+  let $router = useRouter()
+  // 获取路由对象
+  let $route = useRoute()
   // 异步|逻辑的地方
   const userLogin = async (data: loginForm) => {
     // 登陆请求
@@ -25,9 +30,9 @@ const useUserStore = defineStore('User', () => {
     if (result.code == 200) {
       //pinia仓库存储一下token
       //由于pinia|vuex存储数据其实利用js对象
-      token = result.data.token as string
+      token.value = result.data.token as string
       //本地存储持久化一份
-      SET_TOKEN(token as string)
+      SET_TOKEN(token.value as string)
       // 保证async返回一个成功的promis
       return 'ok'
     } else {
@@ -35,10 +40,36 @@ const useUserStore = defineStore('User', () => {
       return Promise.reject(new Error(result.data.message))
     }
   }
+  // 获取用户信息
+  const userInfo = async () => {
+    // 用于获取用户信息进行存储仓库中的数据
+    let result = await reqUserInfo();
+    // 判断是否携带token
+    if (result.code == 200) {
+      username.value = result.data.checkUser.username
+      avatar.value = result.data.checkUser.avatar
+    }
+    console.log('userInfo内部先打印avator和username:', avatar, username);
+  }
+
+  // 退出登录
+  const userLogout = () => {
+    // 目前没有mock接口：退出登录接口（通知服务器本地用户唯一标识失效）
+    token.value = ''
+    username.value = ''
+    avatar.value = ''
+    REMOVE_TOKEN()
+    $router.push({ path: '/login', query: { redirect: $route.path } })
+  }
+
   return {
-    userLogin,
+    avatar,
+    username,
     token,
     menuRoutes: constantRoutes as RouteRecordRaw[],
+    userLogout,
+    userLogin,
+    userInfo,
   }
 })
 

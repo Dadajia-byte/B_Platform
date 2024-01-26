@@ -12,7 +12,7 @@
         <el-menu :default-active="$route.path" background-color="#001529" text-color="white" router
           active-text-color="yellowgreen" :collapse="LayoutSettingStore.iconName === 'Fold'" style="border-right: 0px">
           <!-- 根据路由动态生成菜单 -->
-          <Menu :menuList="UserStore.menuRoutes" text-color="white"></Menu>
+          <Menu :menuList="userStore.menuRoutes" text-color="white"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+// 引入右侧内容展示区域
+import Main from './main/index.vue'
 // 引入左侧菜单logo组件
 import Logo from './logo/index.vue'
 // 引入左侧路由菜单组件
@@ -36,12 +38,12 @@ import Menu from './menu/index.vue'
 // 引入顶部导航
 import Tabbar from './tabbar/index.vue'
 
-// 引入右侧内容展示区域
-import Main from './main/index.vue'
+
 
 // 获取用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-let UserStore = useUserStore()
+let userStore = useUserStore()
+
 // 获取layout配置仓库
 import useLayOutSettingStore from '@/store/setting'
 let LayoutSettingStore = useLayOutSettingStore()
