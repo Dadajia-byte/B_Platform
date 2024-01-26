@@ -43,13 +43,13 @@ const useUserStore = defineStore('User', () => {
   // 获取用户信息
   const userInfo = async () => {
     // 用于获取用户信息进行存储仓库中的数据
-    let result = await reqUserInfo();
+    let result = await reqUserInfo()
     // 判断是否携带token
     if (result.code == 200) {
       username.value = result.data.checkUser.username
       avatar.value = result.data.checkUser.avatar
     }
-    console.log('userInfo内部先打印avator和username:', avatar, username);
+    console.log('userInfo内部先打印avator和username:', avatar, username)
   }
 
   // 退出登录

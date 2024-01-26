@@ -23,5 +23,7 @@ app.use(routers)
 // 引入pinia
 import pinia from './store'
 
+// 引入路由鉴权
+import './permission'
 
 app.use(pinia).mount('#app')

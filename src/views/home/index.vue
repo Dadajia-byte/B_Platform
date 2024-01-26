@@ -3,20 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import useUserStore from '@/store/modules/user';
+import useUserStore from '@/store/modules/user'
 let userStore = useUserStore()
-import { onMounted } from 'vue';
-
+import { onMounted } from 'vue'
 
 // 首页挂载完毕发请求要用户信息
 onMounted(async () => {
-  await userStore.userInfo();
+  await userStore.userInfo()
 
-  console.log(userStore);
-
-
+  console.log(userStore)
 })
-
 </script>
 
 <style scoped></style>
