@@ -1,9 +1,9 @@
 <template>
-  <div>我是一级路由home组件{{ userStore.username }}</div>
+  <div>我是一级路由home组件</div>
 </template>
 
 <script setup lang="ts">
-import useUserStore from '@/store/modules/user'
+/* import useUserStore from '@/store/modules/user'
 let userStore = useUserStore()
 import { onMounted } from 'vue'
 
@@ -12,7 +12,7 @@ onMounted(async () => {
   await userStore.userInfo()
 
   console.log(userStore)
-})
+}) */
 </script>
 
 <style scoped></style>

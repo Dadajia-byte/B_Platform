@@ -1,10 +1,7 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div
-      class="layout_slider"
-      :class="{ fold: LayoutSettingStore.iconName === 'Fold' }"
-    >
+    <div class="layout_slider" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }">
       <!-- logo组件 -->
 
       <Logo></Logo>
@@ -12,33 +9,19 @@
       <!-- 滚动组件 -->
       <el-scrollbar>
         <!-- 菜单组件 -->
-        <el-menu
-          :default-active="$route.path"
-          background-color="#001529"
-          text-color="white"
-          router
-          active-text-color="yellowgreen"
-          :collapse="LayoutSettingStore.iconName === 'Fold'"
-          style="border-right: 0px"
-        >
+        <el-menu :default-active="$route.path" background-color="#001529" text-color="white" router
+          active-text-color="yellowgreen" :collapse="LayoutSettingStore.iconName === 'Fold'" style="border-right: 0px">
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes" text-color="white"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div
-      class="layout_tabbar"
-      :class="{ fold: LayoutSettingStore.iconName === 'Fold' }"
-    >
+    <div class="layout_tabbar" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }">
       <Tabbar></Tabbar>
     </div>
     <!-- 内容区 -->
-    <div
-      class="layout_content"
-      :class="{ fold: LayoutSettingStore.iconName === 'Fold' }"
-      style="border-left: 0px"
-    >
+    <div class="layout_content" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }" style="border-left: 0px">
       <Main></Main>
     </div>
   </div>
@@ -99,6 +82,7 @@ export default {
     left: $leftMenuWidth;
     padding: 20px;
     transition: all 0.8s;
+    border-bottom: 3px solid #f5f7fa;
 
     &.fold {
       width: calc(100vw - $leftMenuMinWidth);
@@ -112,7 +96,9 @@ export default {
     width: calc(100% - $leftMenuWidth);
     top: $topMenuHeight;
     left: $leftMenuWidth;
-    background-color: yellow;
+    padding: 50px;
+    padding-right: 20px;
+    padding-top: 40px;
     overflow: auto;
     transition: all 0.8s;
 
