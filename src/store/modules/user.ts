@@ -4,7 +4,11 @@ import { ref } from 'vue'
 // 引入接口
 import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
 // 引入数据类型
-import type { loginFormData, loginResponseData, userInfoResponseData } from '@/api/user/type'
+import type {
+  loginFormData,
+  loginResponseData,
+  userInfoResponseData,
+} from '@/api/user/type'
 import type { RouteRecordRaw } from 'vue-router'
 // 引入操作本地存储的工具方法
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
@@ -47,19 +51,18 @@ const useUserStore = defineStore('User', () => {
     } else {
       return Promise.reject(new Error(result.message))
     }
-
   }
 
   // 退出登录
   const userLogout = async () => {
     // 退出登录请求
-    let result: any = await reqLogout();
+    let result: any = await reqLogout()
     if (result.code == 200) {
       token.value = ''
       username.value = ''
       avatar.value = ''
       REMOVE_TOKEN()
-      return 'OK';
+      return 'OK'
     } else {
       return Promise.reject(new Error(result.message))
     }

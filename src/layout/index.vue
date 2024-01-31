@@ -1,7 +1,10 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }">
+    <div
+      class="layout_slider"
+      :class="{ fold: LayoutSettingStore.iconName === 'Fold' }"
+    >
       <!-- logo组件 -->
 
       <Logo></Logo>
@@ -9,19 +12,33 @@
       <!-- 滚动组件 -->
       <el-scrollbar>
         <!-- 菜单组件 -->
-        <el-menu :default-active="$route.path" background-color="#001529" text-color="white" router
-          active-text-color="yellowgreen" :collapse="LayoutSettingStore.iconName === 'Fold'" style="border-right: 0px">
+        <el-menu
+          :default-active="$route.path"
+          background-color="#001529"
+          text-color="white"
+          router
+          active-text-color="yellowgreen"
+          :collapse="LayoutSettingStore.iconName === 'Fold'"
+          style="border-right: 0px"
+        >
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes" text-color="white"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }">
+    <div
+      class="layout_tabbar"
+      :class="{ fold: LayoutSettingStore.iconName === 'Fold' }"
+    >
       <Tabbar></Tabbar>
     </div>
     <!-- 内容区 -->
-    <div class="layout_content" :class="{ fold: LayoutSettingStore.iconName === 'Fold' }" style="border-left: 0px">
+    <div
+      class="layout_content"
+      :class="{ fold: LayoutSettingStore.iconName === 'Fold' }"
+      style="border-left: 0px"
+    >
       <Main></Main>
     </div>
   </div>
