@@ -1,11 +1,12 @@
 <template>
-  <el-card class="box-card">
-    <!-- 卡片顶部添加品牌按钮 -->
-    <el-button type="primary" size="default" icon="Plus" @click="addTradeMark">
-      添加品牌
-    </el-button>
-    <!-- 表格组件：用于展示已有数据 -->
-    <!-- 
+  <div>
+    <el-card class="box-card">
+      <!-- 卡片顶部添加品牌按钮 -->
+      <el-button type="primary" size="default" icon="Plus" @click="addTradeMark">
+        添加品牌
+      </el-button>
+      <!-- 表格组件：用于展示已有数据 -->
+      <!-- 
       table
       ---border:可以设置表格纵向是否由边框
       table--column
@@ -13,28 +14,28 @@
       ---width：设置这列的宽度
       ---align：设置这列的对齐方式
      -->
-    <el-table style="margin: 10px 0px" border :data="trademarkArr">
-      <el-table-column label="序号" width="100px" align="center" type="index"></el-table-column>
-      <!-- table-column：默认展示数据用div -->
-      <el-table-column label="品牌名称" prop="tmName"></el-table-column>
-      <el-table-column label="品牌LOGO">
-        <template #="{ row }">
-          <img :src="row.logoUrl" style="height: 100px; width: 100px" alt="无图片" />
-        </template>
-      </el-table-column>
-      <el-table-column label="品牌操作">
-        <template #="{ row }">
-          <el-button type="warning" size="small" icon="Edit" @click="editTradeMark(row)"></el-button>
-          <el-popconfirm :title="`您确定要删除${row.tmName}品牌吗？`" width="220px" icon="Delete"
-            @confirm="deleteTrademark(row.id)">
-            <template #reference>
-              <el-button type="danger" size="small" icon="Delete"></el-button>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!-- 
+      <el-table style="margin: 10px 0px" border :data="trademarkArr">
+        <el-table-column label="序号" width="100px" align="center" type="index"></el-table-column>
+        <!-- table-column：默认展示数据用div -->
+        <el-table-column label="品牌名称" prop="tmName"></el-table-column>
+        <el-table-column label="品牌LOGO">
+          <template #="{ row }">
+            <img :src="row.logoUrl" style="height: 100px; width: 100px" alt="无图片" />
+          </template>
+        </el-table-column>
+        <el-table-column label="品牌操作">
+          <template #="{ row }">
+            <el-button type="warning" size="small" icon="Edit" @click="editTradeMark(row)"></el-button>
+            <el-popconfirm :title="`您确定要删除${row.tmName}品牌吗？`" width="220px" icon="Delete"
+              @confirm="deleteTrademark(row.id)">
+              <template #reference>
+                <el-button type="danger" size="small" icon="Delete"></el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 
       分页器组件
       pagination
       ---v-model:current-page:设置分页器当前页码
@@ -43,40 +44,41 @@
       ---background：设置分页器背景颜色
       ---layout：设置分页器六个子组件布局(->顶到最右侧)
      -->
-    <div class="demo-pagination-block">
-      <el-pagination v-model:current-page="pageNo" @current-change="getHasTrademark" @size-change="changeList"
-        v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
-        layout="prev, pager, next, jumper,->,sizes ,total" :total="total" />
-    </div>
-  </el-card>
-  <!-- 对话框组件：在添加与修改品牌的业务时使用的结构 -->
-  <!-- 
+      <div class="demo-pagination-block">
+        <el-pagination v-model:current-page="pageNo" @current-change="getHasTrademark" @size-change="changeList"
+          v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
+          layout="prev, pager, next, jumper,->,sizes ,total" :total="total" />
+      </div>
+    </el-card>
+    <!-- 对话框组件：在添加与修改品牌的业务时使用的结构 -->
+    <!-- 
     v-model：控制用户对话框显示与隐藏（true显示）
     title：对话框标题
   -->
-  <el-dialog v-model="dialogFormVisible" :title="dialogTitle">
-    <el-form style="width: 80%" :model="trademarkParams" :rules="rules" ref="formRef">
-      <el-form-item label="品牌名称" label-width="100px" prop="tmName">
-        <el-input placeholder="请输入品牌名称" v-model="trademarkParams.tmName"></el-input>
-      </el-form-item>
-      <el-form-item label="品牌LOGO" label-width="100px" prop="logoUrl">
-        <!--upload组件属性：
+    <el-dialog v-model="dialogFormVisible" :title="dialogTitle">
+      <el-form style="width: 80%" :model="trademarkParams" :rules="rules" ref="formRef">
+        <el-form-item label="品牌名称" label-width="100px" prop="tmName">
+          <el-input placeholder="请输入品牌名称" v-model="trademarkParams.tmName"></el-input>
+        </el-form-item>
+        <el-form-item label="品牌LOGO" label-width="100px" prop="logoUrl">
+          <!--upload组件属性：
           action图片上传路劲书写/api，代理服务器不发送这次post请求  -->
-        <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
-          :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-          <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
-          <el-icon v-else class="avatar-uploader-icon">
-            <Plus />
-          </el-icon>
-        </el-upload>
-      </el-form-item>
-    </el-form>
-    <!-- 具名插槽：footer -->
-    <template #footer>
-      <el-button type="primary" size="default" @click="cancel">取消</el-button>
-      <el-button type="primary" size="default" @click="confirm">确定</el-button>
-    </template>
-  </el-dialog>
+          <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
+            :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
+            <el-icon v-else class="avatar-uploader-icon">
+              <Plus />
+            </el-icon>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <!-- 具名插槽：footer -->
+      <template #footer>
+        <el-button type="primary" size="default" @click="cancel">取消</el-button>
+        <el-button type="primary" size="default" @click="confirm">确定</el-button>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -84,7 +86,7 @@ import { ref, reactive, onMounted, nextTick } from 'vue'
 import {
   reqHasTrademark,
   reqAddOrUpdateTrademark,
-  reqDeleteTrademark
+  reqDeleteTrademark,
 } from '@/api/product/trademark'
 import type { UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
@@ -137,7 +139,7 @@ const cancel = () => {
 const confirm = async () => {
   // 在发请求之前，要对整个表单进行校验
   // 调用这个方法进行全部表单校验，如果校验全部通过，再执行后面
-  await formRef.value.validate();
+  await formRef.value.validate()
   await reqAddOrUpdateTrademark(trademarkParams)
     .then((res) => {
       console.log(res)
@@ -174,11 +176,11 @@ const addTradeMark = () => {
 // row：即为当前已有的品牌
 const editTradeMark = (row: TradeMark) => {
   // 展示已有品牌的数据
-  trademarkParams.tmName = row.tmName;
-  trademarkParams.logoUrl = row.logoUrl;
+  trademarkParams.tmName = row.tmName
+  trademarkParams.logoUrl = row.logoUrl
   trademarkParams.id = row.id
 
-  dialogFormVisible.value = true;
+  dialogFormVisible.value = true
   dialogTitle.value = '编辑品牌'
 
   nextTick(() => {
@@ -187,20 +189,21 @@ const editTradeMark = (row: TradeMark) => {
 }
 
 const deleteTrademark = async (id: number) => {
-  await reqDeleteTrademark(id).then(() => {
-    ElMessage({
-      type: 'success',
-      message: '删除品牌成功'
+  await reqDeleteTrademark(id)
+    .then(() => {
+      ElMessage({
+        type: 'success',
+        message: '删除品牌成功',
+      })
+      getHasTrademark()
     })
-    getHasTrademark()
-  }).catch(() => {
-    ElMessage({
-      type: 'error',
-      message: '删除品牌失败'
+    .catch(() => {
+      ElMessage({
+        type: 'error',
+        message: '删除品牌失败',
+      })
     })
-  })
 }
-
 
 // 组件挂载完毕，发第一次请求
 onMounted(() => {
@@ -234,9 +237,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   }
 }
 // 图片上传成功之后的钩子
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
-  response,
-) => {
+const handleAvatarSuccess: UploadProps['onSuccess'] = (response) => {
   // response:即为上传图片post请求服务器返回的数据
   trademarkParams.logoUrl = response.data
   // 图片上传成功，清除对应图片校验结果
@@ -254,15 +255,15 @@ const validatorTmName = (rule: any, value: any, callback: any) => {
   }
 }
 const validatorLogoUrl = (rule: any, value: any, callback: any) => {
-  if (value) { callback() } else { callback(new Error("务必保证品牌LOGO输入")) }
+  if (value) {
+    callback()
+  } else {
+    callback(new Error('务必保证品牌LOGO输入'))
+  }
 }
 const rules = {
-  tmName: [
-    { required: true, trigger: 'blur', validator: validatorTmName }
-  ],
-  logoUrl: [
-    { required: true, validator: validatorLogoUrl }
-  ]
+  tmName: [{ required: true, trigger: 'blur', validator: validatorTmName }],
+  logoUrl: [{ required: true, validator: validatorLogoUrl }],
 }
 </script>
 

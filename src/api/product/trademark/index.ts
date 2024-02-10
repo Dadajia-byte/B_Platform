@@ -1,6 +1,7 @@
 // 品牌管理模块接口
 import request from '@/utils/request'
 import type { TradeMark, TradeMarkResponseData } from './type'
+
 // 品牌管理模块接口地址
 enum API {
   // 获取已有品牌接口
@@ -10,7 +11,7 @@ enum API {
   // 修改已有品牌
   UPDATETRADEMARK_URL = '/admin/product/baseTrademark/update',
   // 删除已有品牌
-  DELETE_URL = "/admin/product/baseTrademark/remove/"
+  DELETE_URL = '/admin/product/baseTrademark/remove/',
 }
 
 // 获取已有品牌的接口方法
@@ -35,4 +36,5 @@ export const reqAddOrUpdateTrademark = (data: TradeMark) => {
 }
 
 // 删除已有品牌数据
-export const reqDeleteTrademark = (id: number) => request.delete<any, any>(API.DELETE_URL + id)
+export const reqDeleteTrademark = (id: number) =>
+  request.delete<any, any>(API.DELETE_URL + id)
